@@ -16,15 +16,12 @@ import { resetStack } from '../src/services/navigation';
 const Setting = (props) => {
     const onLogout = () => {
         AsyncStorage.clear();
-        resetStack('Login',props);
+        resetStack('Login', props);
     }
     return (
         <View style={styles.container}>
-            <ScrollView contentContainerStyle={{flexGrow:1,paddingHorizontal:mvs(20),paddingVertical:mvs(40)}}>
-            {/* <TouchableOpacity style={{paddingVertical:mvs(15),borderRadius:mvs(12),alignItems: 'center',borderWidth:0.7}} onPress={onLogout}>
-                <Text>Logout</Text>
-            </TouchableOpacity> */}
-            <PrimaryBotton label='Logout' onPress={onLogout}/>
+            <ScrollView contentContainerStyle={{ flexGrow: 1, paddingHorizontal: mvs(20), paddingVertical: mvs(40) }}>
+                <PrimaryBotton label='Logout' onPress={onLogout} />
             </ScrollView>
 
         </View>

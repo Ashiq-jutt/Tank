@@ -24,9 +24,13 @@ import Loader from './Loader';
 import { getData, saveData } from '../src/services/firebase';
 import { useDispatch, useSelector } from 'react-redux';
 import { setUserInfo } from '../src/store/reducers/user-reducer';
+import CustomRadio from '../src/components/radio-button';
+import { mvs } from '../src/services/metrices';
+import { resetStack } from '../src/services/navigation';
  
 const SignUp = (props) => {
   const [userEmail, setUserEmail] = useState('');
+  const [isCaptain, setIsCaptain] = useState(false);
   const [name, setName] = useState('');
   const [userPassword, setUserPassword] = useState('');
   const [loading, setLoading] = useState(false);
@@ -56,13 +60,14 @@ const SignUp = (props) => {
         name:name,
         email:userEmail,
         password:userPassword,
+        isCaptain,
       }
       const user=await getData('users',userEmail);
       if(!user){
         await saveData('users',userEmail,userData);
         const newUser=await getData('users',userEmail);
         dispatch(setUserInfo(newUser));
-        props?.navigation?.navigate('Home');
+        resetStack(newUser?.isCaptain?'CaptainTab':'ConsumerTab',props);
       }else{
         if(Platform.OS==='android')
         ToastAndroid.show('Email already Exists', ToastAndroid.LONG)
@@ -151,6 +156,11 @@ const SignUp = (props) => {
                 {errortext}
               </Text>
             ) : null}
+            <View style={{marginVertical:0,flexDirection:'row',justifyContent:'space-evenly'}}>
+              <CustomRadio onChange={setIsCaptain} status={!isCaptain} subLabel={'Consumer'}/>
+              <CustomRadio onChange={setIsCaptain} status={isCaptain} subLabel={'Captain'}/>
+            </View>
+
             <TouchableOpacity
               style={styles.buttonStyle}
             //   activeOpacity={0.5}
