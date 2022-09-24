@@ -45,6 +45,7 @@ const Home = (props) => {
             AsyncStorage.setItem('urd','passive');}}/>} 
             <Text style={{color:'white'}}>for Urdu</Text>
            </View> */}
+           <View/>
             </View>
              {/* {check?:null}   */}
             
