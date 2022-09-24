@@ -21,12 +21,12 @@ import {
 import AsyncStorage from '@react-native-async-storage/async-storage';
  
 import Loader from './Loader';
-import { getData, saveData } from '../src/services/firebase';
+import { getData, saveData } from '../services/firebase';
 import { useDispatch, useSelector } from 'react-redux';
-import { setUserInfo } from '../src/store/reducers/user-reducer';
-import CustomRadio from '../src/components/radio-button';
-import { mvs } from '../src/services/metrices';
-import { resetStack } from '../src/services/navigation';
+import { setUserInfo } from '../store/reducers/user-reducer';
+import CustomRadio from '../components/radio-button';
+import { mvs } from '../services/metrices';
+import { resetStack } from '../services/navigation';
  
 const SignUp = (props) => {
   const [userEmail, setUserEmail] = useState('');

@@ -6,8 +6,8 @@ import Geolocation from '@react-native-community/geolocation';
 import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 import { Button, Card, FAB, IconButton, List } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/dist/MaterialCommunityIcons';
-import Mybutton from '../component/MyButton';
-import Mytextinput from '../component/Mytextinput';
+import Mybutton from '../../component/MyButton';
+import Mytextinput from '../../component/Mytextinput';
 const Map = (props) => {
 
 
@@ -57,7 +57,6 @@ const Map = (props) => {
             Geolocation.getCurrentPosition(
                 info => {
                     const { coords } = info
-                    console.log(coords);
                     setLat(coords.latitude)
                     setlong(coords.longitude)
                     // setS(coords.accuracy)

@@ -6,9 +6,9 @@ import { View, Text, StyleSheet, TouchableOpacity, CheckBox } from 'react-native
 import Icon from 'react-native-vector-icons/dist/FontAwesome'
 // import Icon2 from 'react-native-vector-icons/dist/FontAwesome'
 import Checkbo from 'react-native-vector-icons/dist/Fontisto'
-import { PrimaryBotton } from '../src/components/buttons';
-import { mvs } from '../src/services/metrices';
-import { resetStack } from '../src/services/navigation';
+import { PrimaryBotton } from '../components/buttons';
+import { mvs } from '../services/metrices';
+import { resetStack } from '../services/navigation';
 // import {CheckBox} from 'react-native-elements';
 
 // const icon = ;

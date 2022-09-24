@@ -11,8 +11,8 @@ import {
   
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { resetStack } from '../src/services/navigation';
-import { setUserInfo } from '../src/store/reducers/user-reducer';
+import { resetStack } from '../services/navigation';
+import { setUserInfo } from '../store/reducers/user-reducer';
 import { useDispatch } from 'react-redux';
  
 const Splash = (props) => {
