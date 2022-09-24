@@ -19,15 +19,13 @@ import {
 import AsyncStorage from '@react-native-async-storage/async-storage';
  
 import Loader from './Loader';
-import { setUserInfo } from '../src/store/reducers/user-reducer';
 import { useDispatch, useSelector } from 'react-redux';
 import { getData } from '../src/services/firebase';
 import { Platform } from 'react-native';
 import { ToastAndroid } from 'react-native';
 import { resetStack } from '../src/services/navigation';
- 
+import {saveData,Delete,getAllOfCollection,getAllOfCollectiondoublewhere} from '../component/firebaseServices'
 const Login = (props) => {
-  const [userEmail, setUserEmail] = useState('');
   const [userPassword, setUserPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [errortext, setErrortext] = useState('');
