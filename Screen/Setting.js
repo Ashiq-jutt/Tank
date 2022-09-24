@@ -10,13 +10,15 @@ import Checkbo from 'react-native-vector-icons/dist/Fontisto'
 // const icon = ;
 // create a component
 const Setting = (props) => {
- 
+    const onLogout = () => {
+        AsyncStorage.clear();
+    }
     return (
         <View style={styles.container}>
-        <View>
-            <Text>Setting</Text>
-        </View>
-           
+            <TouchableOpacity onPress={onLogout}>
+                <Text>Setting</Text>
+            </TouchableOpacity>
+
         </View>
     );
 };
