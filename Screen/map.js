@@ -1,11 +1,14 @@
 //import liraries
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, CheckBox, Image } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, CheckBox, Image, Modal, ScrollView, KeyboardAvoidingView } from 'react-native';
 // import {enableLatestRenderer} from 'react-native-maps';
 import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 import Geolocation from '@react-native-community/geolocation';
 import Icon from 'react-native-vector-icons/dist/MaterialCommunityIcons'
 import { Button, Card, FAB, IconButton, List } from 'react-native-paper';
+import Mytextinput from '../component/Mytextinput';
+import Mybutton from '../component/MyButton';
+import Mytext from '../component/Mytext';
 const Map = (props) => {
 
 
@@ -18,115 +21,218 @@ const Map = (props) => {
         longitude: -122.4324,
         latitudeDelta: 0.0922,
         longitudeDelta: 0.0421,
-      });
-   
+    });
+    const [userName, setUserName] = useState('');
+    const [userContact, setUserContact] = useState('');
+    const [userAddress, setUserAddress] = useState('');
+    const [modalVisible, setModalVisible] = useState(false);
+    const register_user = () => {
+        console.log(userName, userContact, userAddress);
+
+        if (!userName) {
+            alert('Please fill name');
+            return;
+        }
+        if (!userContact) {
+            alert('Please fill Contact Number');
+            return;
+        }
+        if (!userAddress) {
+            alert('Please fill Address');
+            return;
+        }
+        // setModalVisible(false);
+
+    }
+    const onButtonPress = () => {
+        setModalVisible(false);
+
+    };
+    const adminhandler=()=> {
+        setModalVisible(true);
+        // alert('admin add tanker')
+
+    }
+        useEffect(() => {
+            console.log(111);
+            Geolocation.getCurrentPosition(
+                info => {
+                    const { coords } = info
+                    console.log(coords);
+                    setLat(coords.latitude)
+                    setlong(coords.longitude)
+                    // setS(coords.accuracy)
+                },
+                error => console.log(error),
+
+            )
+        }, [])
+        return (
+            <View style={styles.container}>
+
+                <MapView
+                    provider={PROVIDER_GOOGLE} // remove if not using Google Maps
+                    style={styles.map}
+                    showsUserLocation={true}
+                    //    accuracy=
+                    region={latlng}
+                >
 
 
-    useEffect(() => {
-        console.log(111);
-        Geolocation.getCurrentPosition(
-            info => {
-                const { coords } = info
-                console.log(coords);
-                setLat(coords.latitude)
-                setlong(coords.longitude)
-                // setS(coords.accuracy)
-            },
-            error => console.log(error),
 
-        )
-    }, [])
-    // enableLatestRenderer();  
-    
-    
-// Icon@http://192.168.1.70:8081/index.bundle?platform=android&dev=true&minify=false&app=com.tanker&modulesOnly=false&runModule=true:133133:38
-    return (
-        <View style={styles.container}>
+                    <Marker
+                        onPress={() => alert('ready for provide service')}
+                        desciption="origion"
+                        coordinate={{ latitude: lat, longitude: long }}
+                    >
+                        <Icon name="tanker-truck" size={40} color="blue" />
+                    </Marker>
+                    <Marker
+                        onPress={() => alert('ready for provide service')}
+                        desciption="Destination"
+                        coordinate={{ latitude: lat, longitude: long }}
+                    >
+                        <Icon name="tanker-truck" size={50} color="red" />
+                    </Marker>
 
-            <MapView
-                provider={PROVIDER_GOOGLE} // remove if not using Google Maps
-                style={styles.map}
-                showsUserLocation={true}
-                //    accuracy=
-                region={latlng}
-            >
-                
-                   
-                        
-                            <Marker
-                                onPress={() => alert('ready for provide service')}
-                                desciption="origion"
-                                coordinate={{ latitude: lat, longitude: long }}
-                            >
-                                <Icon name="tanker-truck" size={40} color="blue" />
-                            </Marker>
-                            <Marker
-                                onPress={() => alert('ready for provide service')}
-                                desciption="Destination"
-                                coordinate={{ latitude: lat, longitude: long }}
-                            >
-                                <Icon name="tanker-truck" size={50} color="red" />
-                            </Marker>
-                            
-                    
-                        
-                
-                
 
-            </MapView>
-            {chk==2?
-                
-                     <FAB 
-            onPress={()=>alert('admin add tanker')}
-            style={{ position:'absolute', margin: 0 ,}} icon="plus" 
-            >
-            
-                </FAB>
-                :null}
+
+
+
+
+                </MapView>
+                {chk == 2 ?
+
+                    <FAB
+                        onPress={ adminhandler}
+                        style={{ position: 'absolute', margin: 0, }} icon="plus"
+                    >
+
+                    </FAB>
+                    : null}
 
                 {
-                    chk==2?
-                    <View style={{bottom:0,position:'absolute',width:'100%'}}>
-                    <Card>
-                        <Card.Content>
-                            <List.Item
-                                title="pkr 500.00"
-                                description="total price of delivery"
-                                left={()=>
-                               <IconButton
-                                icon='bike'
-                                size={30}
-                                />
-                                }
-                                right={()=>
-                                <View>
-                                    <Button mode='outlined' onPress={()=>alert('you cancel delivery..')}>Cancel</Button>
-                                    <Button mode='contained' onPress={()=>alert('you deliver your delivery..')}>Confirm</Button>
-                                </View>
-                            }/>
-                                
-                        </Card.Content>
-                    </Card>
-                    </View>
-                    :null
+                    chk == 2 ?
+                        <View style={{ bottom: 0, position: 'absolute', width: '100%' }}>
+                            <Card>
+                                <Card.Content>
+                                    <List.Item
+                                        title="pkr 500.00"
+                                        description="total price of delivery"
+                                        left={() =>
+                                            <IconButton
+                                                icon='bike'
+                                                size={30}
+                                            />
+                                        }
+                                        right={() =>
+                                            <View>
+                                                <Button mode='outlined' onPress={() => alert('you cancel delivery..')}>Cancel</Button>
+                                                <Button mode='contained' onPress={() => alert('you deliver your delivery..')}>Confirm</Button>
+                                            </View>
+                                        } />
+
+                                </Card.Content>
+                            </Card>
+                        </View>
+                        : null
                 }
-           
-        </View>
-    );
-};
-
-// define your styles
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        // justifyContent: 'center',
-        // alignItems: 'center',
-        // backgroundColor: '#2c3e50',
-    },
-    map: {
-        ...StyleSheet.absoluteFillObject,
-    },
-});
 
 
-export default Map;
+                <Modal
+                    animationType="slide"
+                    transparent={true}
+                    visible={modalVisible}
+                    onRequestClose={() => {
+                        Alert.alert('Modal has been closed.');
+                        setModalVisible(!modalVisible);
+                    }}>
+                    <View
+                        style={{
+                            // flex:1,
+                            height: ('55%'),
+                            width: '100%',
+                            bottom: 0,
+                            backgroundColor: 'white',
+                            borderTopRightRadius: 25,
+                            // borderTopColor:'grey's,
+                            position: 'absolute',
+                            borderBottomWidth: StyleSheet.hairlineWidth,
+                            borderTopLeftRadius: 25,
+                        }}>
+                        
+                            <ScrollView keyboardShouldPersistTaps="handled">
+                                <KeyboardAvoidingView
+                                    behavior="padding"
+                                    style={{ justifyContent: 'space-between' }}>
+                                    <Mytextinput
+                                        placeholder="Enter Name"
+                                        onChangeText={
+                                            (e) => setUserName(e)
+                                        }
+                                        style={{ padding: 10 }}
+                                    />
+                                    <Mytextinput
+                                        placeholder="Enter Contact No"
+                                        onChangeText={
+                                            (e) => setUserContact(e)
+                                        }
+                                        maxLength={11}
+                                        keyboardType="numeric"
+                                        style={{ padding: 10 }}
+                                    />
+                                    <Mytextinput
+                                        placeholder="Enter Address"
+                                        onChangeText={
+                                            (e) => setUserAddress(e)
+                                        }
+                                        maxLength={225}
+                                        numberOfLines={5}
+                                        multiline={true}
+                                        style={{ textAlignVertical: 'top', padding: 10 }}
+                                    />
+                                    <Mybutton title="Submit" customClick={register_user} />
+                                </KeyboardAvoidingView>
+                            </ScrollView>
+                      
+                        <TouchableOpacity
+                            onPress={() => onButtonPress()}
+                            style={{
+                                backgroundColor: 'blue',
+                                height: ('7%'),
+                                width: ('80%'),
+                                marginLeft: 30,
+                                borderRadius: 10,
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                                marginTop: 15
+                            }}>
+                            <Text
+                                style={{
+                                    color: 'white',
+                                    fontSize: 18,
+                                    fontWeight: 'bold',
+                                }}>
+                                Serve
+                            </Text>
+                        </TouchableOpacity>
+                    </View>
+                </Modal>
+
+            </View>
+        );
+    };
+    export default Map;
+
+    // define your styles
+    const styles = StyleSheet.create({
+        container: {
+            flex: 1,
+            // justifyContent: 'center',
+            // alignItems: 'center',
+            // backgroundColor: '#2c3e50',
+        },
+        map: {
+            ...StyleSheet.absoluteFillObject,
+        },
+    });

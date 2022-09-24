@@ -111,7 +111,7 @@ const Login = (props) => {
             <TouchableOpacity
               style={styles.buttonStyle}
             //   activeOpacity={0.5}
-            onPress={() =>props.navigation.navigate('Home')}> 
+            onPress={() =>props.navigation.navigate('MyTabs')}> 
               <Text style={styles.buttonTextStyle}>LOGIN</Text>
             </TouchableOpacity>
             <Text

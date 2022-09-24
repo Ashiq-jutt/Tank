@@ -1,6 +1,6 @@
 //import liraries
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import React, { Component, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, CheckBox } from 'react-native';
 import Icon from 'react-native-vector-icons/dist/FontAwesome'
 // import Icon2 from 'react-native-vector-icons/dist/FontAwesome'
@@ -24,15 +24,6 @@ const Home = (props) => {
         
             <View style={{flexDirection:'row',justifyContent:'space-between',width:250,marginTop:30}}>
             <View>
-            <Checkbo name={check=='passive'?("checkbox-passive"):("checkbox:active")} size={50} color="white" 
-            onPress={()=>{
-                setcheck('active');
-                AsyncStorage.setItem('eng','active');
-                
-            }}/>
-            <Text style={{color:'white'}}>for English</Text>
-           </View>
-            {/* <View>
             {check1=='passive'?<Checkbo name="checkbox-passive" size={30} color="white" 
             onPress={()=>{
                 setcheck1('active');
@@ -44,12 +35,24 @@ const Home = (props) => {
                 setcheck1('passive');
             AsyncStorage.setItem('urd','passive');}}/>} 
             <Text style={{color:'white'}}>for Urdu</Text>
-           </View> */}
-           <View/>
-            </View>
+           </View>
+            <View>
+            {check1=='passive'?<Checkbo name="checkbox-passive" size={30} color="white" 
+            onPress={()=>{
+                setcheck1('active');
+                AsyncStorage.setItem('urd','active');
+                
+            }}/>
+            :<Checkbo name="checkbox-active" size={30} color="white"  
+            onPress={()=>{
+                setcheck1('passive');
+            AsyncStorage.setItem('urd','passive');}}/>} 
+            <Text style={{color:'white'}}>for Urdu</Text>
+           </View>
+           {/* <View/> */}
+            </View> 
              {/* {check?:null}   */}
             
-            {/* <Icon2 name={'fingerprint'} size={30} color='yellow' /> */}
             <TouchableOpacity 
               onPress={()=>props.navigation.navigate('Map')}
             
