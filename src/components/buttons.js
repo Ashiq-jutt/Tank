@@ -14,7 +14,6 @@ return(
 </TouchableOpacity>
  );
 };
-export default App;
 const styles = StyleSheet.create({
     container:{paddingVertical:mvs(15),borderRadius:mvs(12),alignItems: 'center',borderWidth:0.7},
     text:{
