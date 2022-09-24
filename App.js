@@ -114,7 +114,7 @@ const App = () => {
   return (
    <Provider store={store}>
     <NavigationContainer>
-      <Stack.Navigator>
+      <Stack.Navigator screenOptions={{headerShown:false}}>
       <Stack.Screen name="splash" component={Splash} />
       <Stack.Screen name="ConsumerTab" component={ConsumerTab} />
       <Stack.Screen name="CaptainTab" component={CaptainTab} />
