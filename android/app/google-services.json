@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "588270265887",
+    "project_id": "tanker-480cf",
+    "storage_bucket": "tanker-480cf.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:588270265887:android:cc5bc86f9c73d63faed72a",
+        "android_client_info": {
+          "package_name": "com.tanker"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "588270265887-cccskvvjpnehlevntgh75rcsp5l37e7u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBnlKRmJO_TvNetB792lXkBgh-NnS3mOio"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "588270265887-cccskvvjpnehlevntgh75rcsp5l37e7u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:588270265887:android:c4c7f1a3ad53bb80aed72a",
+        "android_client_info": {
+          "package_name": "com.tankerapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "588270265887-cccskvvjpnehlevntgh75rcsp5l37e7u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBnlKRmJO_TvNetB792lXkBgh-NnS3mOio"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "588270265887-cccskvvjpnehlevntgh75rcsp5l37e7u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
