@@ -14,11 +14,16 @@ import {
   Keyboard,
   TouchableOpacity,
   KeyboardAvoidingView,
+  ToastAndroid,
+  Platform,
 } from 'react-native';
  
 import AsyncStorage from '@react-native-async-storage/async-storage';
  
 import Loader from './Loader';
+import { getData, saveData } from '../src/services/firebase';
+import { useDispatch, useSelector } from 'react-redux';
+import { setUserInfo } from '../src/store/reducers/user-reducer';
  
 const SignUp = (props) => {
   const [userEmail, setUserEmail] = useState('');
@@ -26,27 +31,45 @@ const SignUp = (props) => {
   const [userPassword, setUserPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [errortext, setErrortext] = useState('');
+  const userInfo=useSelector(state=>state?.user?.userInfo);
+  const dispatch =useDispatch();
+  console.log({userInfo});
 
-  const [as, setAs]=useState([]);
-    let x=[];
-
-  useEffect(() => {
-  firestore()
-  .collection('login')
-  .get()
-  .then(querySnapshot => {
-    console.log('Total users: ', querySnapshot.size);
-    querySnapshot.forEach(documentSnapshot => {
-      console.log('User ID: ', documentSnapshot.id, documentSnapshot.data());
-      x.push(documentSnapshot.data());
-    });
-  });
-//   console.log('xxxxx',  x);
-}, []);
+//   useEffect(() => {
+//   firestore()
+//   .collection('login')
+//   .get()
+//   .then(querySnapshot => {
+//     console.log('Total users: ', querySnapshot.size);
+//     querySnapshot.forEach(documentSnapshot => {
+//       console.log('User ID: ', documentSnapshot.id, documentSnapshot.data());
+//       x.push(documentSnapshot.data());
+//     });
+//   });
+// //   console.log('xxxxx',  x);
+// }, []);
  
 
-  const  handleSubmitPress = () => {
- console.log('sdhsdsahkasfhdskh')
+  const  handleSubmitPress = async() => {
+     try {
+      const userData ={
+        name:name,
+        email:userEmail,
+        password:userPassword,
+      }
+      const user=await getData('users',userEmail);
+      if(!user){
+        await saveData('users',userEmail,userData);
+        const newUser=await getData('users',userEmail);
+        dispatch(setUserInfo(newUser));
+        props?.navigation?.navigate('Home');
+      }else{
+        if(Platform.OS==='android')
+        ToastAndroid.show('Email already Exists', ToastAndroid.LONG)
+      }
+     } catch (error) {
+       console.log(error);
+     }
   };
  
   return (
@@ -55,9 +78,10 @@ const SignUp = (props) => {
       <ScrollView
         keyboardShouldPersistTaps="handled"
         contentContainerStyle={{
-          flex: 1,
+          flexGrow: 1,
           justifyContent: 'center',
           alignContent: 'center',
+          paddingBottom:40
         }}>
         <View>
           <View>
@@ -130,7 +154,7 @@ const SignUp = (props) => {
             <TouchableOpacity
               style={styles.buttonStyle}
             //   activeOpacity={0.5}
-            onPress={() =>props.navigation.navigate('Login')}> 
+            onPress={handleSubmitPress}> 
               <Text style={styles.buttonTextStyle}>SignUp</Text>
             </TouchableOpacity>
             <Text

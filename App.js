@@ -1,18 +1,20 @@
 //import liraries
-import React, {Component} from 'react';
-import {View, Text, StyleSheet} from 'react-native';
-import {NavigationContainer} from '@react-navigation/native';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import React from 'react';
+import { StyleSheet } from 'react-native';
+import { enableLatestRenderer } from 'react-native-maps';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import { Provider } from 'react-redux';
 import Home from './Screen/Home';
 import Login from './Screen/Login';
-import Splash from './Screen/Splash';
-import SignUp from './Screen/SignUp';
-import Map from './Screen/Map';
-import Setting from './Screen/Setting';
+import Map from './Screen/map';
 import RespondComplain from './Screen/RespondComplain';
-import {enableLatestRenderer} from 'react-native-maps';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import Setting from './Screen/Setting';
+import SignUp from './Screen/SignUp';
+import Splash from './Screen/Splash';
+import { store } from './src/store';
 
 const Tab = createBottomTabNavigator();
 
@@ -110,6 +112,7 @@ function CaptainTab() {
 // create a component
 const App = () => {
   return (
+   <Provider store={store}>
     <NavigationContainer>
       <Stack.Navigator>
       <Stack.Screen name="splash" component={Splash} />
@@ -123,6 +126,7 @@ const App = () => {
         <Stack.Screen name="RespondComplain" component={RespondComplain}/>
       </Stack.Navigator>
     </NavigationContainer>
+   </Provider>
   );
 };
 

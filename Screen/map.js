@@ -1,14 +1,13 @@
 //import liraries
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, CheckBox, Image, Modal, ScrollView, KeyboardAvoidingView } from 'react-native';
+import { KeyboardAvoidingView, Modal, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 // import {enableLatestRenderer} from 'react-native-maps';
-import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 import Geolocation from '@react-native-community/geolocation';
-import Icon from 'react-native-vector-icons/dist/MaterialCommunityIcons'
+import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 import { Button, Card, FAB, IconButton, List } from 'react-native-paper';
-import Mytextinput from '../component/Mytextinput';
+import Icon from 'react-native-vector-icons/dist/MaterialCommunityIcons';
 import Mybutton from '../component/MyButton';
-import Mytext from '../component/Mytext';
+import Mytextinput from '../component/Mytextinput';
 const Map = (props) => {
 
 

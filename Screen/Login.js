@@ -19,33 +19,56 @@ import {
 import AsyncStorage from '@react-native-async-storage/async-storage';
  
 import Loader from './Loader';
+import { setUserInfo } from '../src/store/reducers/user-reducer';
+import { useDispatch, useSelector } from 'react-redux';
+import { getData } from '../src/services/firebase';
+import { Platform } from 'react-native';
+import { ToastAndroid } from 'react-native';
+import { resetStack } from '../src/services/navigation';
  
 const Login = (props) => {
   const [userEmail, setUserEmail] = useState('');
   const [userPassword, setUserPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [errortext, setErrortext] = useState('');
-
-  const [as, setAs]=useState([]);
-  useEffect(() => {
-  firestore()
-  .collection('login')
-  .get()
-  .then(querySnapshot => {
-    console.log('Total users: ', querySnapshot.size);
-    // let x=[];
-    querySnapshot.forEach(documentSnapshot => {
-      console.log('User ID: ', documentSnapshot.id, documentSnapshot.data());
-    //   x.push(documentSnapshot.data());
-    });
-  });
-//   console.log('xxxxx',  x);
-}, []);
+  const userInfo=useSelector(state=>state?.user?.userInfo);
+  const dispatch =useDispatch();
+  const  handleSubmitPress = async() => {
+    try {
+     const user=await getData('users',userEmail);
+     console.log(user);
+     if(user){
+       if(user?.password===userPassword){
+         dispatch(setUserInfo(user));
+         AsyncStorage.setItem('@user',JSON.stringify(user));
+         resetStack(user?.isCaptain?'CaptainTab':'ConsumerTab',props);
+       }else{
+        if(Platform.OS==='android')
+        ToastAndroid.show('Password did not match', ToastAndroid.LONG)
+      }
+     }else{
+       if(Platform.OS==='android')
+       ToastAndroid.show('Email does not exist', ToastAndroid.LONG)
+     }
+    } catch (error) {
+      console.log(error);
+    }
+ };
+//   useEffect(() => {
+//   firestore()
+//   .collection('login')
+//   .get()
+//   .then(querySnapshot => {
+//     console.log('Total users: ', querySnapshot.size);
+//     // let x=[];
+//     querySnapshot.forEach(documentSnapshot => {
+//       console.log('User ID: ', documentSnapshot.id, documentSnapshot.data());
+//     //   x.push(documentSnapshot.data());
+//     });
+//   });
+// //   console.log('xxxxx',  x);
+// }, []);
  
-
-  const  handleSubmitPress = () => {
- console.log('sdhsdsahkasfhdskh')
-  };
  
   return (
     <View style={styles.mainBody}>
@@ -111,7 +134,7 @@ const Login = (props) => {
             <TouchableOpacity
               style={styles.buttonStyle}
             //   activeOpacity={0.5}
-            onPress={() =>props.navigation.navigate('MyTabs')}> 
+            onPress={handleSubmitPress}> 
               <Text style={styles.buttonTextStyle}>LOGIN</Text>
             </TouchableOpacity>
             <Text

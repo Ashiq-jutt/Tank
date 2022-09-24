@@ -11,16 +11,34 @@ import {
   
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { resetStack } from '../src/services/navigation';
+import { setUserInfo } from '../src/store/reducers/user-reducer';
+import { useDispatch } from 'react-redux';
  
 const Splash = (props) => {
   //State for ActivityIndicator animation
   const [animating, setAnimating] = useState(true);
- 
+  const dispatch = useDispatch();
   useEffect(() => {
-    setTimeout(() => {
-      setAnimating(false);
-      props.navigation.navigate('Login')
-    }, 5000);
+    try {
+      let screen ='Login'
+      AsyncStorage.getItem('@user').then(user=>{
+        const userData =JSON.parse(user);
+        if(userData){
+          dispatch(setUserInfo(userData));
+          if(userData?.isCaptain)
+          screen ='CaptainTab'
+          else
+          screen ='ConsumerTab'
+        }
+      })
+      setTimeout(() => {
+        setAnimating(false);
+        resetStack(screen,props);
+      }, 3000);
+    } catch (error) {
+      
+    }
   }, []);
  
   return (
