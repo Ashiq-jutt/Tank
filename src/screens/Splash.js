@@ -44,7 +44,7 @@ const Splash = (props) => {
   return (
     <View style={styles.container}>
       <Image
-        source={require('../src/Image/logo.jpg')}
+        source={require('../../src/Image/logo.jpg')}
         style={{width: '90%', resizeMode: 'contain', margin: 30}}
       />
       <ActivityIndicator

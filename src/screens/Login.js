@@ -84,7 +84,7 @@ const Login = (props) => {
           <View>
             <View style={{alignItems: 'center'}}>
               <Image
-                source={require('../src/Image/logo.jpg')}
+                source={require('../../src/Image/logo.jpg')}
                 style={{
                   width: '50%',
                   height: 100,

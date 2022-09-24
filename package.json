@@ -17,8 +17,6 @@
     "@react-navigation/bottom-tabs": "^6.4.0",
     "@react-navigation/native": "^6.0.12",
     "@react-navigation/native-stack": "^6.8.0",
-    "install": "^0.13.0",
-    "npm": "^8.19.2",
     "@reduxjs/toolkit": "^1.8.5",
     "moment": "^2.29.4",
     "react": "17.0.2",
