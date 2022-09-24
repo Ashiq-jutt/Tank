@@ -6,6 +6,7 @@ import { View, Text, StyleSheet, TouchableOpacity, CheckBox } from 'react-native
 import Icon from 'react-native-vector-icons/dist/FontAwesome'
 // import Icon2 from 'react-native-vector-icons/dist/FontAwesome'
 import Checkbo from 'react-native-vector-icons/dist/Fontisto'
+import { PrimaryBotton } from '../src/components/buttons';
 import { mvs } from '../src/services/metrices';
 import { resetStack } from '../src/services/navigation';
 // import {CheckBox} from 'react-native-elements';
@@ -20,9 +21,10 @@ const Setting = (props) => {
     return (
         <View style={styles.container}>
             <ScrollView contentContainerStyle={{flexGrow:1,paddingHorizontal:mvs(20),paddingVertical:mvs(40)}}>
-            <TouchableOpacity style={{paddingVertical:mvs(15),borderRadius:mvs(12),alignItems: 'center',borderWidth:0.7}} onPress={onLogout}>
+            {/* <TouchableOpacity style={{paddingVertical:mvs(15),borderRadius:mvs(12),alignItems: 'center',borderWidth:0.7}} onPress={onLogout}>
                 <Text>Logout</Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
+            <PrimaryBotton label='Logout' onPress={onLogout}/>
             </ScrollView>
 
         </View>

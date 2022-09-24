@@ -25,7 +25,9 @@ import { Platform } from 'react-native';
 import { ToastAndroid } from 'react-native';
 import { resetStack } from '../src/services/navigation';
 import {saveData,Delete,getAllOfCollection,getAllOfCollectiondoublewhere} from '../component/firebaseServices'
+import { setUserInfo } from '../src/store/reducers/user-reducer';
 const Login = (props) => {
+  const [userEmail, setUserEmail] = useState('');
   const [userPassword, setUserPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [errortext, setErrortext] = useState('');
