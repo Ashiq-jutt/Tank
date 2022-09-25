@@ -5,7 +5,6 @@ import Icon from 'react-native-vector-icons/dist/FontAwesome';
 import Email from 'react-native-vector-icons/dist/MaterialCommunityIcons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { resetStack } from '../services/navigation';
-import { PrimaryBotton } from '../components/buttons';
 import { useSelector } from 'react-redux';
 import colors from '../services/colors';
 const RespondComplain = (props) => {
@@ -35,30 +34,32 @@ const RespondComplain = (props) => {
           borderRadius:20,position:'absolute',marginTop:-40,flexDirection:'row',alignItems:'center',
           justifyContent:'space-evenly',elevation: 7,}}>
             <View>
-              <Text>follow</Text>
-              <Text>123</Text>
+              <Text>total order</Text>
+              <Text style={{alignSelf:'center'}}>3</Text>
             </View>
             <View>
-              <Text>follow</Text>
-              <Text>123</Text>
+              <Text>pending order</Text>
+              <Text style={{alignSelf:'center'}}>1</Text>
             </View>
-            <View>
-              <Text>follow</Text>
-              <Text>123</Text>
+            <View >
+              <Text>complete order</Text>
+              <Text style={{alignSelf:'center'}}>2</Text>
             </View>
           </View>
-           <View style={{marginTop:50,height:150,justifyContent:'space-around'}}>
+           <View style={{marginTop:50,height:180,justifyContent:'space-around'}}>
             <View style={styles.emailview}>
           <Email name="email" size={20} color="black"  />
           <Text style={styles.emailtext}>{userInfo.email}</Text>
             </View> 
             <View style={styles.emailview}>
           <Email name="security-network" size={20} color="black"  />
-          {userInfo.isCaptain=='true'?<Text style={styles.emailtext}>Captan</Text>
-          :<Text style={styles.emailtext}>Costumer</Text>}
+         <Text style={styles.emailtext}>{userInfo.email}</Text>
             </View>
            
-           
+            <View style={styles.emailview}>
+          <Email name="cellphone" size={20} color="black"  />
+         <Text style={styles.emailtext}>{userInfo.mobile}</Text>
+            </View>
            </View>
            <TouchableOpacity style={styles.emailview} onPress={onLogout}>
           <Email name="logout" size={20} color="black"  />

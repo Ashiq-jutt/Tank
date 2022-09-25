@@ -32,6 +32,7 @@ const SignUp = (props) => {
   const [userEmail, setUserEmail] = useState('');
   const [isCaptain, setIsCaptain] = useState(false);
   const [name, setName] = useState('');
+  const [mobile, setMobile] = useState('');
   const [userPassword, setUserPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [errortext, setErrortext] = useState('');
@@ -59,6 +60,7 @@ const SignUp = (props) => {
       const userData ={
         name:name,
         email:userEmail,
+        mobile:mobile,
         password:userPassword,
         isCaptain,
       }
@@ -105,12 +107,25 @@ const SignUp = (props) => {
             <View style={styles.SectionStyle}>
               <TextInput
                 style={styles.inputStyle}
-                onChangeText={(e) =>setName(e)
-                }
+                onChangeText={(e) =>setName(e)}
                 placeholder="Enter Name" //dummy@abc.com
                 placeholderTextColor="white"
                 autoCapitalize="none"
                 keyboardType="email-address"
+                returnKeyType="next"
+                underlineColorAndroid="#f000"
+                blurOnSubmit={false}
+              />
+            </View>
+            <View style={styles.SectionStyle}>
+              <TextInput
+                style={styles.inputStyle}
+                onChangeText={(e) =>setMobile(e)
+                }
+                placeholder="Enter number" //dummy@abc.com
+                placeholderTextColor="white"
+                autoCapitalize="none"
+                keyboardType="numeric"
                 returnKeyType="next"
                 underlineColorAndroid="#f000"
                 blurOnSubmit={false}
@@ -153,12 +168,12 @@ const SignUp = (props) => {
             </View>
             {errortext != '' ? (
               <Text style={styles.errorTextStyle}>
-                {errortext}
+                {errortext}  
               </Text>
             ) : null}
             <View style={{marginVertical:0,flexDirection:'row',justifyContent:'space-evenly'}}>
-              <CustomRadio onChange={setIsCaptain} status={!isCaptain} subLabel={'Consumer'}/>
-              <CustomRadio onChange={setIsCaptain} status={isCaptain} subLabel={'Captain'}/>
+              <CustomRadio onChange={()=>setIsCaptain(false)} status={!isCaptain} subLabel={'Consumer'}/>
+              <CustomRadio onChange={()=>setIsCaptain(true)} status={isCaptain} subLabel={'Captain'}/>
             </View>
 
             <TouchableOpacity
