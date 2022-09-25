@@ -1,5 +1,5 @@
 import React from 'react';
-import { FlatList, StyleSheet, Text, Touchable, TouchableOpacity, View } from 'react-native';
+import { Alert, FlatList, StyleSheet, Text, Touchable, TouchableOpacity, View } from 'react-native';
 import Rnfirestore from '@react-native-firebase/firestore';
 import { useSelector } from 'react-redux';
 import { mvs } from '../../services/metrices';
@@ -17,15 +17,42 @@ const ConsumerOrders = (props) => {
                 const arr = [];
                 snap.forEach(documentSnapshot => {
                     console.log('User ID: ', documentSnapshot.id, documentSnapshot.data());
-                    arr?.push(documentSnapshot.data());
+                    arr?.push({...documentSnapshot.data(),id:documentSnapshot.id});
                 });
                 setOrders(arr);
             });
         return () => subscriber();
     }, []);
+    const onDeleteOffer =(id)=>{
+        try {
+            Alert.alert(
+                "",
+                'Are sure to delete this offer',
+                [
+                    {
+                        text: "Cancel",
+                        style: "cancel",
+                    },
+                    { text: 'Confirm', onPress: async()=>{
+                        Rnfirestore().collection('orders')
+                        .doc(id)
+                        .delete()
+                        .then(() => {
+                          console.log('Order deleted!');
+                        });
+                      
+                    } 
+                },
+                ],
+                { cancelable: false }
+            )
+        } catch (error) {
+            
+        }
+    }
     const renderItem =({item,index})=>{
         return(
-            <TouchableOpacity style={{elevation:5,backgroundColor:colors.white,borderRadius:mvs(12),padding:mvs(15)}} 
+            <TouchableOpacity onLongPress={()=>onDeleteOffer(item?.id)} style={{elevation:5,backgroundColor:colors.white,borderRadius:mvs(12),padding:mvs(15)}} 
             onPress={()=>props?.navigation?.navigate('OrderDetails',{order:item})}>
                 <Text>Price  : {item?.offerPrice}</Text>
                 <Text>Address: {item?.address}</Text>

@@ -103,7 +103,7 @@ const ConsumerHome = (props) => {
                         .doc(id)
                         .delete()
                         .then(() => {
-                          console.log('User deleted!');
+                          console.log('Order deleted!');
                         });
                       
                     } 

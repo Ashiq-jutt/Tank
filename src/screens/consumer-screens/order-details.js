@@ -33,12 +33,13 @@ const OrderDetails = (props) => {
       setLoading(false);
     }
   }
+  
   return (
     <View style={styles.container}>
       <AppHeader title='Order Details' />
       <ScrollView contentContainerStyle={styles.contentContainerStyle}>
         <View style={{ paddingHorizontal: mvs(20), paddingVertical: mvs(5) }}>
-     {order?.status!='pending'&&<CustomInput
+        {order?.status!='pending'&&<CustomInput
             editable={false}
             value={payload?.captainName}
             label='Captain Name'
@@ -57,7 +58,7 @@ const OrderDetails = (props) => {
           <CustomInput
             editable={false}
             value={payload?.address}
-            label='Pick location from map'
+            label='Order Location'
             placeholder='Your location here'
             onChangeText={(text) => {}}
           />
@@ -76,9 +77,9 @@ const OrderDetails = (props) => {
           </MapView>
          
         </View>
-        <View style={{width:'100%',paddingHorizontal:mvs(20),paddingVertical:mvs(25)}}>
+        {/* <View style={{width:'100%',paddingHorizontal:mvs(20),paddingVertical:mvs(25)}}>
           <PrimaryBotton loading={loading} onPress={onCreateOffer} textStyle={{color:colors.white}} style={{backgroundColor:colors.primary,borderWidth: 0,}} label='Accept Offer'/>
-          </View>
+          </View> */}
       </ScrollView>
     </View>
   );
