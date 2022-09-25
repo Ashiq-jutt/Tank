@@ -56,7 +56,7 @@ const ConsumerOrders = (props) => {
             onPress={()=>props?.navigation?.navigate('OrderDetails',{order:item})}>
                 <Text>Price  : {item?.offerPrice}</Text>
                 <Text>Address: {item?.address}</Text>
-                <Text>Status: {item?.status}</Text>
+                <Text>Status: {item?.isCompleted?'Completed': item?.status==='inprogress'?'In Progress':'Wait for captain Approval'}</Text>
             </TouchableOpacity>
         )
     }

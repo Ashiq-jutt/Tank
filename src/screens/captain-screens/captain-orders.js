@@ -52,12 +52,12 @@ const CaptainOrders = (props) => {
     }
     const renderItem =({item,index})=>{
         return(
-            <TouchableOpacity onLongPress={()=>onDeleteOffer(item?.id)} style={{elevation:5,backgroundColor:colors.white,borderRadius:mvs(12),padding:mvs(15),marginVertical:mvs(7)}} 
+            <TouchableOpacity  style={{elevation:5,backgroundColor:colors.white,borderRadius:mvs(12),padding:mvs(15),marginVertical:mvs(7)}} 
             onPress={()=>props?.navigation?.navigate('CaptainOrderDetails',{order:item})}>
                 <Text>Created By: {item?.name}</Text>
                 <Text>Price  : {item?.offerPrice}</Text>
                 <Text>Address: {item?.address}</Text>
-                <Text>Status: {item?.isCompleted?'Completed': item?.status==='inprogress'?'In Progress':'Aprove Order'}</Text>
+                <Text>Status: {item?.isCompleted?'Completed': item?.status==='inprogress'?'In Progress':'Approve Order'}</Text>
             </TouchableOpacity>
         )
     }
