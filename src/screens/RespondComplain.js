@@ -2,15 +2,23 @@
 import React, { Component, useState } from 'react';
 import { View, Text, StyleSheet,Keyboard, TextInput, TouchableOpacity, TouchableWithoutFeedback, ScrollView } from 'react-native';
 import Icon from 'react-native-vector-icons/dist/FontAwesome';
+import Email from 'react-native-vector-icons/dist/MaterialCommunityIcons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { resetStack } from '../services/navigation';
 import { PrimaryBotton } from '../components/buttons';
+import { useSelector } from 'react-redux';
+import colors from '../services/colors';
 const RespondComplain = (props) => {
     const [respond, setRespond] = useState('')
+
+  const userInfo =useSelector(s=>s?.user?.userInfo);
+  console.log('..............   ',userInfo);
+
     const onLogout = () => {
       AsyncStorage.clear();
       resetStack('Login', props);
   }
+  
     return (
         <View 
         onPress={()=>Keyboard.dismiss()}
@@ -18,7 +26,7 @@ const RespondComplain = (props) => {
           <View style={{backgroundColor:"blue",height:'42%',width:'100%',alignItems:'center'}}>
           <View style={{marginTop:40}}>
           <Icon name="user-circle-o" size={100} color="white"  />
-          <Text style={{color:'white',textAlign:'center',marginTop:8,fontSize:14}}>user name</Text>
+          <Text style={{color:'white',textAlign:'center',marginTop:8,fontSize:14}}>{userInfo.name}</Text>
           </View>
 
           </View>
@@ -39,17 +47,26 @@ const RespondComplain = (props) => {
               <Text>123</Text>
             </View>
           </View>
-           <View>
-            <View>
-          <Icon name="user-circle-o" size={100} color="white"  />
-          <Text>email</Text>
+           <View style={{marginTop:50,height:150,justifyContent:'space-around'}}>
+            <View style={styles.emailview}>
+          <Email name="email" size={20} color="black"  />
+          <Text style={styles.emailtext}>{userInfo.email}</Text>
             </View> 
-            <View>
-          <Icon name="user-circle-o" size={100} color="white"  />
-          <Text>email</Text>
+            <View style={styles.emailview}>
+          <Email name="security-network" size={20} color="black"  />
+          {userInfo.isCaptain=='true'?<Text style={styles.emailtext}>Captan</Text>
+          :<Text style={styles.emailtext}>Costumer</Text>}
             </View>
+           
+           
            </View>
-          <PrimaryBotton label='Logout' onPress={onLogout} />
+           <TouchableOpacity style={styles.emailview} onPress={onLogout}>
+          <Email name="logout" size={20} color="black"  />
+          
+          <Text style={styles.emailtext}>Logout</Text>
+            </TouchableOpacity>
+           
+
 
           </View>
           </View>
@@ -64,6 +81,13 @@ const styles = StyleSheet.create({
         // alignItems:'center',
        
     },
+    emailview:{
+      flexDirection:'row',
+      paddingHorizontal:20,
+      paddingVertical:15,
+      borderBottomWidth:1,
+    },
+    emailtext:{marginLeft:10},
    
 });
 
