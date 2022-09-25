@@ -1,16 +1,21 @@
 import React from 'react';
-import { StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { ActivityIndicator, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { mvs } from '../services/metrices';
+import colors from './../services/colors';
 export const PrimaryBotton=({
     label='label',
     style,
     textStyle,
     onPress=()=>{},
     disabled,
+    loading=false,
+
 })=>{
 return(
-    <TouchableOpacity disabled={disabled} onPress={onPress} style={[styles.container,style]}>
-    <Text style={[styles.text,textStyle]}>{label}</Text>
+    <TouchableOpacity disabled={disabled||loading} onPress={onPress} style={[styles.container,style]}>
+    {loading?
+    <ActivityIndicator size={'small'} color={colors.white}/>
+    :<Text style={[styles.text,textStyle]}>{label}</Text>}
 </TouchableOpacity>
  );
 };

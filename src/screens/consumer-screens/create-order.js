@@ -12,7 +12,7 @@ import { saveData } from '../../services/firebase';
 import { mvs } from '../../services/metrices';
 Geocoder.init('AIzaSyCu7vvCjMVF7SY1iNf4DH7EJoITE7f8Xjw');
 
-const CreateOffer = (props) => {
+const CreateOrder = (props) => {
   const ref = React.useRef(null);
   const userInfo =useSelector(s=>s?.user?.userInfo);
 
@@ -61,10 +61,10 @@ const CreateOffer = (props) => {
         console.warn(error);
       });
   };
-  const onCreateOffer =async ()=>{
+  const onCreateOrder =async ()=>{
     try {
       const id = SERVICES.getUUID();
-      saveData('orders',id,{...payload,name:userInfo?.name,email:userInfo?.email});
+      saveData('orders',id,{...payload,name:userInfo?.name,email:userInfo?.email,status:'pending'});
       props?.navigation?.goBack()
     } catch (error) {
       console.log(error);
@@ -106,14 +106,14 @@ const CreateOffer = (props) => {
             <Marker coordinate={payload.location}/>
           </MapView>
           <View style={{position:'absolute',width:'100%',paddingHorizontal:mvs(20),bottom:mvs(25)}}>
-          {payload?.address!==''&&<PrimaryBotton onPress={onCreateOffer} textStyle={{color:colors.white}} style={{backgroundColor:colors.primary,borderWidth: 0,}} label='Create Offer'/>}
+          {payload?.address!==''&&<PrimaryBotton onPress={onCreateOrder} textStyle={{color:colors.white}} style={{backgroundColor:colors.primary,borderWidth: 0,}} label='Create Offer'/>}
           </View>
         </View>
       </ScrollView>
     </View>
   );
 };
-export default CreateOffer;
+export default CreateOrder;
 const styles = StyleSheet.create({
   container: {
     flex: 1,

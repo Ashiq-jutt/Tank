@@ -16,9 +16,11 @@ import SignUp from './src/screens/SignUp';
 import Splash from './src/screens/Splash';
 import { store } from './src/store';
 import ConsumerHome from './src/screens/consumer-screens/home';
-import CreateOffer from './src/screens/consumer-screens/create-offer';
+import CreateOrder from './src/screens/consumer-screens/create-order';
 import CaptainHome from './src/screens/captain-screens/home';
-import ConsumerRequests from './src/screens/consumer-screens/request';
+import ConsumerOrders from './src/screens/consumer-screens/orders';
+import AcceptOrder from './src/screens/captain-screens/accept-order';
+import OrderDetails from './src/screens/consumer-screens/order-details';
 
 const Tab = createBottomTabNavigator();
 
@@ -46,13 +48,13 @@ function ConsumerTab() {
       />
       <Tab.Screen
         name="Requests"
-        component={ConsumerRequests}
+        component={ConsumerOrders}
         options={{
-          tabBarLabel: 'Settings',
+          tabBarLabel: 'Orders',
           tabBarIcon: ({ color, size }) => (
-            <MaterialCommunityIcons name="bell" color={color} size={size} />
+            <MaterialCommunityIcons name="offer" color={color} size={size} />
           ),
-          tabBarBadge: 3,
+          // tabBarBadge: 3,
         }}
       />
       <Tab.Screen
@@ -120,9 +122,11 @@ const App = () => {
     <NavigationContainer>
       <Stack.Navigator screenOptions={{headerShown:false}}>
       <Stack.Screen name="splash" component={Splash} />
-      <Stack.Screen name="CreateOffer" component={CreateOffer} />
+      <Stack.Screen name="CreateOrder" component={CreateOrder} />
       <Stack.Screen name="ConsumerTab" component={ConsumerTab} />
+      <Stack.Screen name="OrderDetails" component={OrderDetails} />
       <Stack.Screen name="CaptainTab" component={CaptainTab} />
+      <Stack.Screen name="AcceptOrder" component={AcceptOrder} />
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Map" component={Map} />
         <Stack.Screen name="SignUp" component={SignUp}/>

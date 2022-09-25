@@ -1,15 +1,20 @@
 //import liraries
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { Alert, StyleSheet, Text, View } from 'react-native';
 // import {enableLatestRenderer} from 'react-native-maps';
-import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
+import Rnfirestore from '@react-native-firebase/firestore';
+
+import MapView, { Callout, Marker, PROVIDER_GOOGLE } from 'react-native-maps';
+import { FAB } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/dist/MaterialCommunityIcons';
-// import { FAB } from 'react-native-paper';
-import { mvs } from '../../services/metrices';
+import { useSelector } from 'react-redux';
 import SERVICES from '../../services';
 import { saveData } from '../../services/firebase';
-import { useDispatch, useSelector } from 'react-redux';
+import { mvs } from '../../services/metrices';
+import colors from './../../services/colors';
 const CaptainHome = (props) => {
+
+    const ref = React.useRef(null);
     const [lat, setLat] = useState(37.78825);
     const [long, setlong] = useState(-122.4324);
     const [s, setS] = useState(0);
@@ -25,21 +30,29 @@ const CaptainHome = (props) => {
     const [userAddress, setUserAddress] = useState('');
     const [modalVisible, setModalVisible] = useState(false);
     const userInfo = useSelector(s => s?.user?.userInfo);
+    const [users, setUsers] = useState([]);
+    const [offers, setOffers] = useState([]);
     React.useEffect(() => {
         SERVICES._get_current_location(
             async position => {
                 if (userInfo) {
                     const coords = position?.coords;
+                    const location = {
+                        latitude: coords?.latitude,
+                        longitude: coords?.longitude,
+                        latitudeDelta: 0.0922,
+                        longitudeDelta: 0.0421
+                    }
                     saveData('users', userInfo?.email,
                         {
                             // ...userInfo,
-                            location: {
-                                latitude:coords?.latitude,
-                                longitude:coords?.longitude,
-                                latitudeDelta: 0.0922,
-                                longitudeDelta: 0.0421
-                            }
+                            location: location
                         })
+                    // ref?.current?.animateToRegion({
+                    //     latitude: coords?.latitude,
+                    //     longitude: coords?.longitude,
+                    // }, 1000);
+                    setLatlng(location);
                 }
             },
             error => {
@@ -48,31 +61,58 @@ const CaptainHome = (props) => {
         );
     }, []);
     useEffect(() => {
-      
+        const subscriber = Rnfirestore()
+            .collection('users').where('isCaptain', '==', true)
+            .onSnapshot(snap => {
+                // const data=documentSnapshot?.data();
+                const arr = [];
+                snap.forEach(documentSnapshot => {
+                    console.log('User ID: ', documentSnapshot.id, documentSnapshot.data());
+                    arr?.push(documentSnapshot.data());
+                });
+                setUsers(arr);
+            });
+        return () => subscriber();
+    }, []);
+     
+    useEffect(() => {
+        const subscriber = Rnfirestore()
+            .collection('orders').where('status', '==','pending')
+            .onSnapshot(snap => {
+                // const data=documentSnapshot?.data();
+                const arr = [];
+                snap.forEach(documentSnapshot => {
+                    arr?.push({...documentSnapshot.data(),id:documentSnapshot.id});
+                });
+                setOffers(arr);
+            });
+        return () => subscriber();
     }, [])
+    const onOfferClick =(item)=>{
+        props?.navigation?.navigate('AcceptOrder',{order:item});
+    }
     return (
         <View style={styles.container}>
             <MapView
+                ref={ref}
                 provider={PROVIDER_GOOGLE} // remove if not using Google Maps
                 style={styles.map}
                 showsUserLocation={true}
-                //    accuracy=
                 region={latlng}
             >
-                <Marker
-                    onPress={() => alert('ready for provide service')}
+                {offers?.map((item, index) => (item?.location ? <Marker
+                    key={index}
                     desciption="origion"
-                    coordinate={{ latitude: lat, longitude: long }}
+                    coordinate={item?.location}
                 >
-                    <Icon name="tanker-truck" size={40} color="blue" />
-                </Marker>
-                <Marker
-                    onPress={() => alert('ready for provide service')}
-                    desciption="Destination"
-                    coordinate={{ latitude: lat, longitude: long }}
-                >
-                    <Icon name="tanker-truck" size={50} color="red" />
-                </Marker>
+                    <Callout onPress={()=>onOfferClick(item)}>
+                        <View>
+                            <Text>Requseted Offer</Text>
+                            <Text>Price: {item?.offerPrice}</Text>
+                            <Text>Address: {item?.address}</Text>
+                        </View>
+                    </Callout>
+                </Marker> : null))}
             </MapView>
             {/* <FAB
                 onPress={() => props?.navigation?.navigate('CreateOffer')}

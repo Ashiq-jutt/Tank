@@ -77,7 +77,7 @@ const ConsumerHome = (props) => {
      
     useEffect(() => {
         const subscriber = Rnfirestore()
-            .collection('offers').where('email', '==', userInfo?.email)
+            .collection('orders').where('email', '==', userInfo?.email)
             .onSnapshot(snap => {
                 // const data=documentSnapshot?.data();
                 const arr = [];
@@ -99,7 +99,7 @@ const ConsumerHome = (props) => {
                         style: "cancel",
                     },
                     { text: 'Confirm', onPress: async()=>{
-                        Rnfirestore().collection('offers')
+                        Rnfirestore().collection('orders')
                         .doc(id)
                         .delete()
                         .then(() => {
@@ -145,7 +145,7 @@ const ConsumerHome = (props) => {
                 </Marker> : null))}
             </MapView>
             <FAB
-                onPress={() => props?.navigation?.navigate('CreateOffer')}
+                onPress={() => props?.navigation?.navigate('CreateOrder')}
                 style={{ position: 'absolute', bottom: mvs(40), right: mvs(20) }} icon="plus"
             />
         </View>
