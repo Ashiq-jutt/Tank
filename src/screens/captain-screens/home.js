@@ -10,8 +10,6 @@ import SERVICES from '../../services';
 import { saveData } from '../../services/firebase';
 import { useDispatch, useSelector } from 'react-redux';
 const CaptainHome = (props) => {
-
-
     const [lat, setLat] = useState(37.78825);
     const [long, setlong] = useState(-122.4324);
     const [s, setS] = useState(0);
@@ -50,9 +48,7 @@ const CaptainHome = (props) => {
         );
     }, []);
     useEffect(() => {
-       (async()=>{
-          
-       })()
+      
     }, [])
     return (
         <View style={styles.container}>

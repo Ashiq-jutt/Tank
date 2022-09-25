@@ -2,14 +2,15 @@
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 // import {enableLatestRenderer} from 'react-native-maps';
-import Geolocation from '@react-native-community/geolocation';
+import Rnfirestore from '@react-native-firebase/firestore';
+
 import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
-import Icon from 'react-native-vector-icons/dist/MaterialCommunityIcons';
 import { FAB } from 'react-native-paper';
-import { mvs } from '../../services/metrices';
+import Icon from 'react-native-vector-icons/dist/MaterialCommunityIcons';
+import { useSelector } from 'react-redux';
 import SERVICES from '../../services';
 import { saveData } from '../../services/firebase';
-import { useDispatch, useSelector } from 'react-redux';
+import { mvs } from '../../services/metrices';
 const ConsumerHome = (props) => {
 
 
@@ -37,8 +38,8 @@ const ConsumerHome = (props) => {
                         {
                             // ...userInfo,
                             location: {
-                                latitude:coords?.latitude,
-                                longitude:coords?.longitude,
+                                latitude: coords?.latitude,
+                                longitude: coords?.longitude,
                                 latitudeDelta: 0.0922,
                                 longitudeDelta: 0.0421
                             }
@@ -51,9 +52,15 @@ const ConsumerHome = (props) => {
         );
     }, []);
     useEffect(() => {
-       (async()=>{
-          
-       })()
+        const subscriber = Rnfirestore()
+        .collection('users').where('isCaptain','==',true)
+        .onSnapshot(snap => {
+        // const data=documentSnapshot?.data();
+        snap.forEach(documentSnapshot => {
+            console.log('User ID: ', documentSnapshot.id, documentSnapshot.data());
+          });
+        });
+      return () => subscriber();
     }, [])
     return (
         <View style={styles.container}>
