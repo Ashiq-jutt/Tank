@@ -28,16 +28,17 @@ const CaptainOrders = (props) => {
         return(
             <TouchableOpacity  style={{elevation:5,backgroundColor:colors.white,borderRadius:mvs(12),padding:mvs(15),marginVertical:mvs(7)}} 
             onPress={()=>props?.navigation?.navigate('CaptainOrderDetails',{order:item})}>
-                <Text>Created By: {item?.name}</Text>
-                <Text>Price  : {item?.offerPrice}</Text>
-                <Text>Address: {item?.address}</Text>
-                <Text>Status: {item?.isCompleted?'Completed': item?.status==='inprogress'?'In Progress':'Approve Order'}</Text>
+                <Text style={{color:colors.primary}}>Created By  :<Text style={{color:colors.black}}>{item?.name}</Text></Text>
+                <Text style={{color:colors.primary}}>Price  :<Text style={{color:colors.black}}>{item?.offerPrice}</Text></Text>
+                <Text style={{color:colors.primary}}>Address  :<Text style={{color:colors.black}}>{item?.address}</Text></Text>
+                <Text style={{color:colors.primary}}>Status  :<Text style={{color:colors.black}}>{item?.isCompleted?'Completed': item?.status==='inprogress'?'In Progress':'Approve Order'}</Text></Text>
+                
             </TouchableOpacity>
         )
     }
     return (
         <View style={styles.container}>
-            <Text>Your Orders</Text>
+            <View style={{alignSelf:"center",marginTop:19}}><Text style={{fontSize:24,fontWeight:'bold'}}>Your Orders</Text></View>
             <FlatList
              contentContainerStyle={{padding:mvs(20)}}
             data={orders}

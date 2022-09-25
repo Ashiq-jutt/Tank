@@ -4,6 +4,7 @@ import Rnfirestore from '@react-native-firebase/firestore';
 import { useSelector } from 'react-redux';
 import { mvs } from '../../services/metrices';
 import colors from './../../services/colors';
+import { Colors } from 'react-native-paper';
 
 const ConsumerOrders = (props) => {
     const [orders, setOrders] = React.useState([]);
@@ -54,15 +55,16 @@ const ConsumerOrders = (props) => {
         return(
             <TouchableOpacity onLongPress={()=>item?.status==='pending'&&onDeleteOffer(item?.id)} style={{elevation:5,backgroundColor:colors.white,borderRadius:mvs(12),padding:mvs(15),marginVertical:mvs(7)}} 
             onPress={()=>props?.navigation?.navigate('OrderDetails',{order:item})}>
-                <Text>Price  : {item?.offerPrice}</Text>
-                <Text>Address: {item?.address}</Text>
-                <Text>Status: {item?.isCompleted?'Completed':item?.status==='pending'?'Pending': item?.status==='inprogress'?'In Progress':'Wait for captain Approval'}</Text>
+                <Text style={{color:colors.primary}}>Price  :<Text style={{color:colors.black}}>{item?.offerPrice}</Text></Text>
+                <Text style={{color:colors.primary}}>Address  :<Text style={{color:colors.black}}>{item?.address}</Text></Text>
+                <Text style={{color:colors.primary}}>Status  :<Text style={{color:colors.black}}> {item?.isCompleted?'Completed':item?.status==='pending'?'Pending': item?.status==='inprogress'?'In Progress':'Wait for captain Approval'}</Text></Text>
             </TouchableOpacity>
         )
     }
     return (
         <View style={styles.container}>
-            <Text>Your Orders</Text>
+   <View style={{alignSelf:"center",marginTop:19}}><Text style={{fontSize:24,fontWeight:'bold'}}>Your Orders</Text></View>
+
             <FlatList
              contentContainerStyle={{padding:mvs(20)}}
             data={orders}
