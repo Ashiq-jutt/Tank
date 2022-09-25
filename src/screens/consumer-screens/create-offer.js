@@ -15,7 +15,6 @@ Geocoder.init('AIzaSyCu7vvCjMVF7SY1iNf4DH7EJoITE7f8Xjw');
 const CreateOffer = (props) => {
   const ref = React.useRef(null);
   const userInfo =useSelector(s=>s?.user?.userInfo);
-  console.log(userInfo);
 
   const [payload, setPayload] = React.useState({
     offerPrice: '500',

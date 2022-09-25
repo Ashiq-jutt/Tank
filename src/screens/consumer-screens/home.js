@@ -7,6 +7,9 @@ import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 import Icon from 'react-native-vector-icons/dist/MaterialCommunityIcons';
 import { FAB } from 'react-native-paper';
 import { mvs } from '../../services/metrices';
+import SERVICES from '../../services';
+import { saveData } from '../../services/firebase';
+import { useDispatch, useSelector } from 'react-redux';
 const ConsumerHome = (props) => {
 
 
@@ -24,18 +27,33 @@ const ConsumerHome = (props) => {
     const [userContact, setUserContact] = useState('');
     const [userAddress, setUserAddress] = useState('');
     const [modalVisible, setModalVisible] = useState(false);
-
-    useEffect(() => {
-        Geolocation.getCurrentPosition(
-            info => {
-                const { coords } = info
-                setLat(coords.latitude)
-                setlong(coords.longitude)
-                // setS(coords.accuracy)
+    const userInfo = useSelector(s => s?.user?.userInfo);
+    React.useEffect(() => {
+        SERVICES._get_current_location(
+            async position => {
+                if (userInfo) {
+                    const coords = position?.coords;
+                    saveData('users', userInfo?.email,
+                        {
+                            // ...userInfo,
+                            location: {
+                                latitude:coords?.latitude,
+                                longitude:coords?.longitude,
+                                latitudeDelta: 0.0922,
+                                longitudeDelta: 0.0421
+                            }
+                        })
+                }
             },
-            error => console.log(error),
-
-        )
+            error => {
+                console.log('error in current location ', error);
+            },
+        );
+    }, []);
+    useEffect(() => {
+       (async()=>{
+          
+       })()
     }, [])
     return (
         <View style={styles.container}>
@@ -63,7 +81,7 @@ const ConsumerHome = (props) => {
             </MapView>
             <FAB
                 onPress={() => props?.navigation?.navigate('CreateOffer')}
-                style={{ position: 'absolute',bottom:mvs(40),right:mvs(20)}} icon="plus"
+                style={{ position: 'absolute', bottom: mvs(40), right: mvs(20) }} icon="plus"
             />
         </View>
     );

@@ -27,8 +27,8 @@ function ConsumerTab() {
   return (
     <Tab.Navigator
       initialRouteName="ConsumerHome"
-      headerShown={false}
       screenOptions={{
+        headerShown:false,
         tabBarActiveTintColor: '#e91e63',
       }}
     >
@@ -70,8 +70,8 @@ function CaptainTab() {
   return (
     <Tab.Navigator
       initialRouteName="Home"
-      headerShown={false}
       screenOptions={{
+        headerShown:false,
         tabBarActiveTintColor: '#e91e63',
       }}
     >
