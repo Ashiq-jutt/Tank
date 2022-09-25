@@ -7,12 +7,29 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { resetStack } from '../services/navigation';
 import { useSelector } from 'react-redux';
 import colors from '../services/colors';
+import Rnfirestore from '@react-native-firebase/firestore';
 const RespondComplain = (props) => {
     const [respond, setRespond] = useState('')
 
   const userInfo =useSelector(s=>s?.user?.userInfo);
   console.log('..............   ',userInfo);
+  const [orders, setOrders] = React.useState([]);
 
+    React.useEffect(() => {
+      const key =userInfo?.isCaptain?'captainEmail':'email'
+        const subscriber = Rnfirestore()
+            .collection('orders').where(key, '==',userInfo?.email)
+            .onSnapshot(snap => {
+                // const data=documentSnapshot?.data();
+                const arr = [];
+                snap.forEach(documentSnapshot => {
+                    console.log('User ID: ', documentSnapshot.id, documentSnapshot.data());
+                    arr?.push({...documentSnapshot.data(),id:documentSnapshot.id});
+                });
+                setOrders(arr);
+            });
+        return () => subscriber();
+    }, []);
     const onLogout = () => {
       AsyncStorage.clear();
       resetStack('Login', props);
@@ -35,15 +52,15 @@ const RespondComplain = (props) => {
           justifyContent:'space-evenly',elevation: 7,}}>
             <View>
               <Text>total order</Text>
-              <Text style={{alignSelf:'center'}}>3</Text>
+              <Text style={{alignSelf:'center'}}>{orders?.length}</Text>
             </View>
             <View>
               <Text>pending order</Text>
-              <Text style={{alignSelf:'center'}}>1</Text>
+              <Text style={{alignSelf:'center'}}>{orders?.filter(x=>!x?.isCompleted)?.length}</Text>
             </View>
             <View >
-              <Text>complete order</Text>
-              <Text style={{alignSelf:'center'}}>2</Text>
+              <Text>completed order</Text>
+              <Text style={{alignSelf:'center'}}>{orders?.filter(x=>x?.isCompleted)?.length}</Text>
             </View>
           </View>
            <View style={{marginTop:50,height:180,justifyContent:'space-around'}}>

@@ -97,16 +97,16 @@ function CaptainTab() {
         options={{
           tabBarLabel: 'Orders',
           tabBarIcon: ({ color, size }) => (
-            <MaterialCommunityIcons name="bell" color={color} size={size} />
+            <MaterialCommunityIcons name="offer" color={color} size={size} />
           ),
-          tabBarBadge: 3,
+          // tabBarBadge: 3,
         }}
       />
       <Tab.Screen
-        name="RespondingComplain"
+        name="User"
         component={RespondComplain}
         options={{
-          tabBarLabel: 'RespondingComplain',
+          tabBarLabel: 'User',
           tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons name="account" color={color} size={size} />
           ),

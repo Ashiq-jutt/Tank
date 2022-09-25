@@ -136,7 +136,7 @@ const ConsumerHome = (props) => {
                     desciption="origion"
                     coordinate={item?.location}
                 >
-                    <Callout onPress={()=>onDeleteOffer(item?.id)}>
+                    <Callout onPress={()=>item?.status==='pending'&& onDeleteOffer(item?.id)}>
                         <View>
                             <Text>Your Offer</Text>
                             <Text>Price: {item?.offerPrice}</Text>
