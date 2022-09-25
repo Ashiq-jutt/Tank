@@ -23,33 +23,7 @@ const CaptainOrders = (props) => {
             });
         return () => subscriber();
     }, []);
-    const onDeleteOffer =(id)=>{
-        try {
-            Alert.alert(
-                "",
-                'Are sure to delete this offer',
-                [
-                    {
-                        text: "Cancel",
-                        style: "cancel",
-                    },
-                    { text: 'Confirm', onPress: async()=>{
-                        Rnfirestore().collection('orders')
-                        .doc(id)
-                        .delete()
-                        .then(() => {
-                          console.log('Order deleted!');
-                        });
-                      
-                    } 
-                },
-                ],
-                { cancelable: false }
-            )
-        } catch (error) {
-            
-        }
-    }
+   
     const renderItem =({item,index})=>{
         return(
             <TouchableOpacity  style={{elevation:5,backgroundColor:colors.white,borderRadius:mvs(12),padding:mvs(15),marginVertical:mvs(7)}} 
