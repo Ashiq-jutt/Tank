@@ -58,7 +58,7 @@ function ConsumerTab() {
         name="RespondingComplain"
         component={RespondComplain}
         options={{
-          tabBarLabel: 'RespondingComplain',
+          tabBarLabel: 'User',
           tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons name="account" color={color} size={size} />
           ),
