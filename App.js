@@ -17,6 +17,7 @@ import Splash from './src/screens/Splash';
 import { store } from './src/store';
 import ConsumerHome from './src/screens/consumer-screens/home';
 import CreateOffer from './src/screens/consumer-screens/create-offer';
+import CaptainHome from './src/screens/captain-screens/home';
 
 const Tab = createBottomTabNavigator();
 
@@ -69,15 +70,15 @@ function ConsumerTab() {
 function CaptainTab() {
   return (
     <Tab.Navigator
-      initialRouteName="Home"
+      initialRouteName="CaptainHome"
       screenOptions={{
         headerShown:false,
         tabBarActiveTintColor: '#e91e63',
       }}
     >
       <Tab.Screen
-        name="Home"
-        component={Home}
+        name="CaptainHome"
+        component={CaptainHome}
         options={{
           tabBarLabel: 'Home',
           tabBarIcon: ({ color, size }) => (

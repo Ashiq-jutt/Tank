@@ -5,6 +5,9 @@ import { View, Text, StyleSheet, TouchableOpacity, CheckBox } from 'react-native
 import Icon from 'react-native-vector-icons/dist/FontAwesome'
 // import Icon2 from 'react-native-vector-icons/dist/FontAwesome'
 import Checkbo from 'react-native-vector-icons/dist/Fontisto'
+import { useSelector } from 'react-redux';
+import { saveData } from '../../component/firebaseServices';
+import SERVICES from '../services';
 // import {CheckBox} from 'react-native-elements';
 
 // const icon = ;
@@ -14,6 +17,29 @@ const Home = (props) => {
     const [check1, setcheck1] = useState('');
     global.check=check;
     global.check1=check1;
+    const userInfo = useSelector(s => s?.user?.userInfo);
+    React.useEffect(() => {
+        SERVICES._get_current_location(
+            async position => {
+                if (userInfo) {
+                    const coords = position?.coords;
+                    saveData('users', userInfo?.email,
+                        {
+                            // ...userInfo,
+                            location: {
+                                latitude:coords?.latitude,
+                                longitude:coords?.longitude,
+                                latitudeDelta: 0.0922,
+                                longitudeDelta: 0.0421
+                            }
+                        })
+                }
+            },
+            error => {
+                console.log('error in current location ', error);
+            },
+        );
+    }, []);
     React.useEffect(()=>{
         // console.log();
        AsyncStorage.getItem('eng').then(res=>setcheck(res));

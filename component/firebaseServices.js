@@ -1,7 +1,5 @@
 import firestore from '@react-native-firebase/firestore';
 
-import auth from '@react-native-firebase/auth';
-
 export async function saveData(collection, doc, jsonObject) {
   await firestore()
     .collection(collection)
