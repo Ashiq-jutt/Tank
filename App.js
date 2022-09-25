@@ -18,6 +18,7 @@ import { store } from './src/store';
 import ConsumerHome from './src/screens/consumer-screens/home';
 import CreateOffer from './src/screens/consumer-screens/create-offer';
 import CaptainHome from './src/screens/captain-screens/home';
+import ConsumerRequests from './src/screens/consumer-screens/request';
 
 const Tab = createBottomTabNavigator();
 
@@ -44,8 +45,8 @@ function ConsumerTab() {
         }}
       />
       <Tab.Screen
-        name="Setting"
-        component={Setting}
+        name="Requests"
+        component={ConsumerRequests}
         options={{
           tabBarLabel: 'Settings',
           tabBarIcon: ({ color, size }) => (
