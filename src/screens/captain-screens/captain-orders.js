@@ -28,10 +28,10 @@ const CaptainOrders = (props) => {
         return(
             <TouchableOpacity  style={{elevation:5,backgroundColor:colors.white,borderRadius:mvs(12),padding:mvs(15),marginVertical:mvs(7)}} 
             onPress={()=>props?.navigation?.navigate('CaptainOrderDetails',{order:item})}>
-                <Text style={{color:colors.primary}}>Created By  :<Text style={{color:colors.black}}>{item?.name}</Text></Text>
-                <Text style={{color:colors.primary}}>Price  :<Text style={{color:colors.black}}>{item?.offerPrice}</Text></Text>
-                <Text style={{color:colors.primary}}>Address  :<Text style={{color:colors.black}}>{item?.address}</Text></Text>
-                <Text style={{color:colors.primary}}>Status  :<Text style={{color:colors.black}}>{item?.isCompleted?'Completed': item?.status==='inprogress'?'In Progress':'Approve Order'}</Text></Text>
+                <Text style={{color:colors.primary}}>Created By : <Text style={{color:colors.black}}>{item?.name}</Text></Text>
+                <Text style={{color:colors.primary}}>Price : <Text style={{color:colors.black}}>{item?.offerPrice}</Text></Text>
+                <Text style={{color:colors.primary}}>Address : <Text style={{color:colors.black}}>{item?.address}</Text></Text>
+                <Text style={{color:colors.primary}}>Status : <Text style={{color:colors.black}}>{item?.isCompleted?'Completed': item?.status==='inprogress'?'In Progress':'Approve Order'}</Text></Text>
                 
             </TouchableOpacity>
         )
