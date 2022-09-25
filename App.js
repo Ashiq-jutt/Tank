@@ -15,6 +15,8 @@ import Setting from './src/screens/Setting';
 import SignUp from './src/screens/SignUp';
 import Splash from './src/screens/Splash';
 import { store } from './src/store';
+import ConsumerHome from './src/screens/consumer-screens/home';
+import CreateOffer from './src/screens/consumer-screens/create-offer';
 
 const Tab = createBottomTabNavigator();
 
@@ -24,15 +26,15 @@ const Stack = createNativeStackNavigator();
 function ConsumerTab() {
   return (
     <Tab.Navigator
-      initialRouteName="Home"
+      initialRouteName="ConsumerHome"
       headerShown={false}
       screenOptions={{
         tabBarActiveTintColor: '#e91e63',
       }}
     >
       <Tab.Screen
-        name="Home"
-        component={Home}
+        name="ConsumerHome"
+        component={ConsumerHome}
         options={{
           tabBarLabel: 'Home',
           tabBarIcon: ({ color, size }) => (
@@ -116,6 +118,7 @@ const App = () => {
     <NavigationContainer>
       <Stack.Navigator screenOptions={{headerShown:false}}>
       <Stack.Screen name="splash" component={Splash} />
+      <Stack.Screen name="CreateOffer" component={CreateOffer} />
       <Stack.Screen name="ConsumerTab" component={ConsumerTab} />
       <Stack.Screen name="CaptainTab" component={CaptainTab} />
         <Stack.Screen name="Login" component={Login} />
