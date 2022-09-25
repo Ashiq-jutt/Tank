@@ -23,12 +23,12 @@ const AcceptOrder = (props) => {
     try {
       const id = SERVICES.getUUID();
       setLoading(true);
-      const data=await getData('assignedOrders',payload?.id)
-      if(!data){
-        await saveData('assignedOrders',payload?.id,{offerDetails:payload,captainDetails:userInfo,captainEmail:userInfo?.email});
+      const data=await getData('orders',payload?.id)
+      if(!data?.captainEmail){
+        // await saveData('assignedOrders',payload?.id,{offerDetails:payload,captainDetails:userInfo,captainEmail:userInfo?.email});
         await saveData('orders',payload?.id,{status:'inprogress',captainEmail:userInfo?.email,captainName:userInfo?.name});
-        ToastAndroid.show('You accepted order successfully', ToastAndroid.LONG)
-        props?.navigation?.goBack()
+        ToastAndroid.show('You accepted order successfully', ToastAndroid.LONG);
+        props?.navigation?.goBack();
       }else{
         ToastAndroid.show('Order is already reserved', ToastAndroid.LONG)
       }

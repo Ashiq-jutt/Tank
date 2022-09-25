@@ -1,3 +1,4 @@
+import firestore from '@react-native-firebase/firestore';
 import React from 'react';
 import { ScrollView, StyleSheet, ToastAndroid, View } from 'react-native';
 import Geocoder from 'react-native-geocoding';
@@ -10,23 +11,22 @@ import SERVICES from '../../services';
 import colors from '../../services/colors';
 import { saveData } from '../../services/firebase';
 import { mvs } from '../../services/metrices';
-import firestore from '@react-native-firebase/firestore';
 Geocoder.init('AIzaSyCu7vvCjMVF7SY1iNf4DH7EJoITE7f8Xjw');
 
-const OrderDetails = (props) => {
+const CaptainOrderDetails = (props) => {
   const ref = React.useRef(null);
   const userInfo = useSelector(s => s?.user?.userInfo);
   const [loading, setLoading] = React.useState(false);
   const { order } = props?.route?.params;
   console.log('order:=>', order);
-  const [payload,setPayload] = React.useState(order);
+  const [payload, setPayload] = React.useState(order);
   React.useEffect(() => {
     const subscriber = firestore()
       .collection('orders')
       .doc(order?.id)
       .onSnapshot(documentSnapshot => {
-        console.log('User data: ', );
-        setPayload({...documentSnapshot.data(),id:order?.id});
+        console.log('User data: ',);
+        setPayload({ ...documentSnapshot.data(), id: order?.id });
       });
 
     // Stop listening for updates when no longer required
@@ -36,15 +36,15 @@ const OrderDetails = (props) => {
     try {
       const id = SERVICES.getUUID();
       setLoading(true);
-      let obj ={
+      let obj = {
         ...payload,
-        status:'completed',
+        isCompleted: 'completed',
       }
-      await saveData('assignedOrders', payload?.id, 
-      { 
-        offerDetails: obj, 
-       });
-      await saveData('orders', payload?.id, { status: 'completed' });
+      await saveData('assignedOrders', payload?.id,
+        {
+          offerDetails: obj,
+        });
+      await saveData('orders', payload?.id, { isCompleted: 'completed' });
       ToastAndroid.show('Offer sent successfully', ToastAndroid.LONG)
       props?.navigation?.goBack()
     } catch (error) {
@@ -97,17 +97,17 @@ const OrderDetails = (props) => {
           </MapView>
 
         </View>
-       {payload?.status!=='pending'&& <View style={{ width: '100%', paddingHorizontal: mvs(20), paddingVertical: mvs(25) }}>
-          <PrimaryBotton disabled={payload?.status==='completed'||payload?.isComplete} loading={loading} onPress={onChangeStatus} textStyle={{ color: colors.white }} style={{ backgroundColor: colors.primary, borderWidth: 0, }} 
-           label={payload?.isComplete?'Order Completed':payload?.status==='inprogress'?'Have you received Water Tank':'Order is completed on your side'} 
-           />
+        <View style={{ width: '100%', paddingHorizontal: mvs(20), paddingVertical: mvs(25) }}>
+          <PrimaryBotton disabled={payload?.status === 'inprogress' || payload?.isCompleted} loading={loading} onPress={onChangeStatus} textStyle={{ color: colors.white }} style={{ backgroundColor: colors.primary, borderWidth: 0, }}
+            label={payload?.isCompleted?'Order Completed': payload?.status === 'inprogress' ? 'Wait for customer approval' :  'Complete order'}
+          />
         </View>
-        }
+
       </ScrollView>
     </View>
   );
 };
-export default OrderDetails;
+export default CaptainOrderDetails;
 const styles = StyleSheet.create({
   container: {
     flex: 1,

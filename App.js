@@ -21,6 +21,8 @@ import CaptainHome from './src/screens/captain-screens/home';
 import ConsumerOrders from './src/screens/consumer-screens/orders';
 import AcceptOrder from './src/screens/captain-screens/accept-order';
 import OrderDetails from './src/screens/consumer-screens/order-details';
+import CaptainOrderDetails from './src/screens/captain-screens/captain-order-details';
+import CaptainOrders from './src/screens/captain-screens/captain-orders';
 
 const Tab = createBottomTabNavigator();
 
@@ -90,10 +92,10 @@ function CaptainTab() {
         }}
       />
       <Tab.Screen
-        name="Setting"
-        component={Setting}
+        name="Orders"
+        component={CaptainOrders}
         options={{
-          tabBarLabel: 'Settings',
+          tabBarLabel: 'Orders',
           tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons name="bell" color={color} size={size} />
           ),
@@ -125,6 +127,7 @@ const App = () => {
       <Stack.Screen name="CreateOrder" component={CreateOrder} />
       <Stack.Screen name="ConsumerTab" component={ConsumerTab} />
       <Stack.Screen name="OrderDetails" component={OrderDetails} />
+      <Stack.Screen name="CaptainOrderDetails" component={CaptainOrderDetails} />
       <Stack.Screen name="CaptainTab" component={CaptainTab} />
       <Stack.Screen name="AcceptOrder" component={AcceptOrder} />
         <Stack.Screen name="Login" component={Login} />
