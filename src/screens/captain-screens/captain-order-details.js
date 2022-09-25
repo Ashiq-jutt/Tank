@@ -45,7 +45,7 @@ const CaptainOrderDetails = (props) => {
           offerDetails: obj,
         });
       await saveData('orders', payload?.id, { isCompleted: 'completed' });
-      ToastAndroid.show('Offer sent successfully', ToastAndroid.LONG)
+      ToastAndroid.show('Order completed successfully', ToastAndroid.LONG)
       props?.navigation?.goBack()
     } catch (error) {
       console.log(error);
