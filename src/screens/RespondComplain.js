@@ -70,7 +70,9 @@ const RespondComplain = (props) => {
             </View> 
             <View style={styles.emailview}>
           <Email name="security-network" size={20} color="black"  />
-         <Text style={styles.emailtext}>{userInfo.email}</Text>
+          {userInfo.isCaptain?<Text style={styles.emailtext}>Captan</Text>
+          :<Text style={styles.emailtext}>Costumer</Text>}
+         
             </View>
            
             <View style={styles.emailview}>

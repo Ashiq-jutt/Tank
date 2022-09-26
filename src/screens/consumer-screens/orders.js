@@ -53,7 +53,8 @@ const ConsumerOrders = (props) => {
     }
     const renderItem =({item,index})=>{
         return(
-            <TouchableOpacity onLongPress={()=>item?.status==='pending'&&onDeleteOffer(item?.id)} style={{elevation:5,backgroundColor:colors.white,borderRadius:mvs(12),padding:mvs(15),marginVertical:mvs(7)}} 
+            <TouchableOpacity onLongPress={()=>item?.status==='pending'&&onDeleteOffer(item?.id)} 
+            style={{elevation:5,backgroundColor:colors.white,borderRadius:mvs(12),padding:mvs(15),marginVertical:mvs(7)}} 
             onPress={()=>props?.navigation?.navigate('OrderDetails',{order:item})}>
                 <Text style={{color:colors.primary}}>Price : <Text style={{color:colors.black}}>{item?.offerPrice}</Text></Text>
                 <Text style={{color:colors.primary}}>Address : <Text style={{color:colors.black}}>{item?.address}</Text></Text>
